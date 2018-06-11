@@ -1,4 +1,4 @@
-spring cloud2/boot2 + oauth2 + zuul + swagger2
+# spring cloud2/boot2 + oauth2 + zuul + swagger2
 
 简要spring security oauth2认证思路。
 
@@ -7,15 +7,15 @@ spring cloud2/boot2 + oauth2 + zuul + swagger2
 * password模式，自己本身有一套用户体系，在认证时需要带上自己的用户名和密码，以及客户端的client_id,client_secret。此时，accessToken所包含的权限是用户本身的权限，而不是客户端的权限。
 
 
-###fcc-oauth2-server
+## fcc-oauth2-server
 
-####oauth2服务端
+### oauth2服务端
 
-**使用oauth2协议来做api-gateway，已实现方式client_credentials,refresh_token,password**
+### 使用oauth2协议来做api-gateway，已实现方式client_credentials,refresh_token,password
 
-**mysql存储username,password(表:sys_user),client_id,client_secret(表:oauth_client_details),脚本oauth2.sql**
+### mysql存储username,password(表:sys_user),client_id,client_secret(表:oauth_client_details),脚本oauth2.sql
 
-**redis存储token**
+### redis存储token
 
 password执行顺序：
 
@@ -34,7 +34,7 @@ client_credentials执行顺序：
 2、PasswordEncoderImpl
 
 
-**可以使用grant_type的方式为client_credentials,refresh_token,password**
+### 可以使用grant_type的方式为client_credentials,refresh_token,password
 
 password请求地址：http://localhost:60000/oauth/token?username=fqm&password=fqm&grant_type=password&client_id=client_2&client_secret=client_2secret
 ```
@@ -69,17 +69,17 @@ refresh_token请求地址：http://localhost:60000/oauth/token?grant_type=refres
 ```
 
 
-***fcc-oauth2-resource***
+## fcc-oauth2-resource
 
-**oauth2需要授权的资源端**
+### oauth2需要授权的资源端
 
-**redis获取token并鉴权**
+### redis获取token并鉴权
 
-**添加自定义oauth2过滤器在鉴权成功后，在请求头里设置username的参数**
+### 添加自定义oauth2过滤器在鉴权成功后，在请求头里设置username的参数
 
-**使用zuul转发api数据**
+### 使用zuul转发api数据
 
-**添加集成各个swagger2的api路由**
+### 添加集成各个swagger2的api路由
 
 * 需要鉴权的接口
 
@@ -172,10 +172,10 @@ swagger:
 ``` 
 4、fcc-oauth2-service-product和fcc-oauth2-service-user为具体实现api的接口应用
 
-***使用swagger2做在线API***
+## 使用swagger2做在线API
 
-**fcc-oauth2-service-product使用swagger-spring-boot-starter集成**
+### fcc-oauth2-service-product使用swagger-spring-boot-starter集成
 
-**fcc-oauth2-service-user使用io.springfox集成**
+### fcc-oauth2-service-user使用io.springfox集成
 
-**添加防止跨域的类CorsFilterConfig**
+### 添加防止跨域的类CorsFilterConfig
