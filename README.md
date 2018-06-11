@@ -7,32 +7,54 @@ spring cloud2/boot2 + oauth2 + zuul + swagger2
 * password模式，自己本身有一套用户体系，在认证时需要带上自己的用户名和密码，以及客户端的client_id,client_secret。此时，accessToken所包含的权限是用户本身的权限，而不是客户端的权限。
 
 
-*** fcc-oauth2-server
-** oauth2服务端
-** 使用oauth2协议来做api-gateway，已实现方式client_credentials,refresh_token,password
-** mysql存储username,password(表:sys_user),client_id,client_secret(表:oauth_client_details),脚本oauth2.sql
-** redis存储token
+###fcc-oauth2-server
+
+####oauth2服务端
+
+**使用oauth2协议来做api-gateway，已实现方式client_credentials,refresh_token,password**
+
+**mysql存储username,password(表:sys_user),client_id,client_secret(表:oauth_client_details),脚本oauth2.sql**
+
+**redis存储token**
 
 password执行顺序：
+
 1、ClientDetailsServiceImpl：自定义查看clientId接口，判断clientId是否存在
+
 2、AuthenticationProviderImpl：spring-security 登录鉴权-检验登录方式为password时username、password值判断，默认返回Token对象表示登陆成功
+
 3、UserDetailsServiceImpl：自定义用户查询接口-username是否存在
+
 4、PasswordEncoderImpl：自定义密码编码
 
 client_credentials执行顺序：
+
 1、ClientDetailsServiceImpl
+
 2、PasswordEncoderImpl
 
 
-** 可以使用grant_type的方式为client_credentials,refresh_token,password
+**可以使用grant_type的方式为client_credentials,refresh_token,password**
+
 password请求地址：http://localhost:60000/oauth/token?username=fqm&password=fqm&grant_type=password&client_id=client_2&client_secret=client_2secret
 ```
-{"access_token":"b217d948-39e7-47dd-b373-07a4186fac5d","token_type":"bearer","refresh_token":"37357f35-6f71-4eb4-8056-6375e734f88a","expires_in":28385,"scope":"select"}
+{   
+    "access_token":"b217d948-39e7-47dd-b373-07a4186fac5d",
+    "token_type":"bearer",
+    "refresh_token":"37357f35-6f71-4eb4-8056-6375e734f88a",
+    "expires_in":28385,
+    "scope":"select"
+}
 ```
 
 client请求地址：http://localhost:60000/oauth/token?grant_type=client_credentials&client_id=client_2&client_secret=client_2secret
 ```
-{"access_token":"ff579450-d88e-46f6-b435-8cd78f7c7371","token_type":"bearer","expires_in":43199,"scope":"select"}
+{
+    "access_token":"ff579450-d88e-46f6-b435-8cd78f7c7371",
+    "token_type":"bearer",
+    "expires_in":43199,
+    "scope":"select"
+}
 ```
 
 refresh_token请求地址：http://localhost:60000/oauth/token?grant_type=refresh_token&client_id=client_2&client_secret=client_2secret&refresh_token=37357f35-6f71-4eb4-8056-6375e734f88a
@@ -47,14 +69,20 @@ refresh_token请求地址：http://localhost:60000/oauth/token?grant_type=refres
 ```
 
 
-*** fcc-oauth2-resource
-** oauth2需要授权的资源端
-** redis获取token并鉴权
-** 添加自定义oauth2过滤器在鉴权成功后，在请求头里设置username的参数
-** 使用zuul转发api数据
-** 添加集成各个swagger2的api路由
+***fcc-oauth2-resource***
+
+**oauth2需要授权的资源端**
+
+**redis获取token并鉴权**
+
+**添加自定义oauth2过滤器在鉴权成功后，在请求头里设置username的参数**
+
+**使用zuul转发api数据**
+
+**添加集成各个swagger2的api路由**
 
 * 需要鉴权的接口
+
 地址：http://localhost:60001/api/product/1?access_token=cc0d0c8e-6c68-45e3-a6ed-80f2b65dc2cb&name=张三1
 ```
 {
@@ -73,7 +101,7 @@ refresh_token请求地址：http://localhost:60000/oauth/token?grant_type=refres
 }
 ```
 
-* oauth2需要授权的资源端
+*oauth2需要授权的资源端
 1、继承ResourceServerConfigurerAdapter，引入redis，重写方法
 ```
     @Autowired
@@ -124,6 +152,7 @@ OAuth2HeaderFilter：自定义拦截器Oauth2认证成功后添加自定义头�
 
 * 添加集成各个swagger2的api路由
 访问地址：http://localhost:60001/swagger-ui.html
+
 1、添加依赖
 ```
     <dependency>
@@ -143,7 +172,10 @@ swagger:
 ``` 
 4、fcc-oauth2-service-product和fcc-oauth2-service-user为具体实现api的接口应用
 
-*** 使用swagger2做在线API
-** fcc-oauth2-service-product使用swagger-spring-boot-starter集成
-** fcc-oauth2-service-user使用io.springfox集成
-** 添加防止跨域的类CorsFilterConfig
+***使用swagger2做在线API***
+
+**fcc-oauth2-service-product使用swagger-spring-boot-starter集成**
+
+**fcc-oauth2-service-user使用io.springfox集成**
+
+**添加防止跨域的类CorsFilterConfig**
