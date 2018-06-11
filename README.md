@@ -7,7 +7,7 @@ spring cloud2/boot2 + oauth2 + zuul + swagger2
 * password模式，自己本身有一套用户体系，在认证时需要带上自己的用户名和密码，以及客户端的client_id,client_secret。此时，accessToken所包含的权限是用户本身的权限，而不是客户端的权限。
 
 
-***fcc-oauth2-server
+###fcc-oauth2-server
 **oauth2服务端
 **使用oauth2协议来做api-gateway，已实现方式client_credentials,refresh_token,password
 **mysql存储username,password(表:sys_user),client_id,client_secret(表:oauth_client_details),脚本oauth2.sql
