@@ -1,0 +1,21 @@
+server:
+  port: 60012
+spring:
+    application:
+        name:fcc-oauth2-service-product
+
+swagger:
+    enabled: true
+    base-package: com.fcc.security.oauth2.web
+    title: Spring Boot中使用Swagger2-使用swagger-spring-boot-starter
+    description: 使用yml配置文件设置ApiInfo
+    version: 1.0
+    license: Apache License, Version 2.0
+    licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+    termsOfServiceUrl: https://github.com/fuquanming/spring-cloud-oauth2-demo
+    contact.name: 傅泉明
+    contact.url: http://api.com
+    contact.email: 67837343@qq.com
+    base-path: /**
+        
+        

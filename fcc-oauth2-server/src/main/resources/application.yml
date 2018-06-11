@@ -1,0 +1,35 @@
+server:
+  port: 60000
+
+spring:
+  redis:
+    host: 127.0.0.1
+    database: 0
+
+logging.level.org.springframework.security: DEBUG
+
+spring:  
+    datasource:  
+        name: oauth2  
+        url: jdbc:mysql://127.0.0.1:3307/oauth2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT%2B8  
+        username: root  
+        password: fqm
+        # 使用druid数据源  
+        type: com.alibaba.druid.pool.DruidDataSource  
+        driver-class-name: com.mysql.jdbc.Driver  
+        filters: stat  
+        maxActive: 20  
+        initialSize: 1  
+        maxWait: 60000  
+        minIdle: 1  
+        timeBetweenEvictionRunsMillis: 60000  
+        minEvictableIdleTimeMillis: 300000  
+        validationQuery: select 'x'  
+        testWhileIdle: true  
+        testOnBorrow: false  
+        testOnReturn: false  
+        poolPreparedStatements: true  
+        maxOpenPreparedStatements: 20 
+        
+        
+        

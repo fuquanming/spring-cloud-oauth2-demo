@@ -1,0 +1,32 @@
+server:
+  port: 60001
+
+spring:
+  redis:
+    host: 192.168.1.222
+    database: 0
+
+logging.level.org.springframework.security: DEBUG
+
+#这里的配置表示，访问/api/** 直接重定向到http://127.0.0.1:60011/
+zuul:
+    routes:
+        api-user:
+            stripPrefix: false # 默认true，重定向时，/api/不在请求路径里，即访问http://127.0.0.1:60001/api/product/1,则重定向到http://127.0.0.1:60000/product/1
+            path: /api/user/**
+            url: http://127.0.0.1:60011/      
+        api-product:
+            stripPrefix: false # 默认true，重定向时，/api/不在请求路径里，即访问http://127.0.0.1:60001/api/product/1,则重定向到http://127.0.0.1:60000/product/1
+            path: /api/product/**
+            url: http://127.0.0.1:60012/      
+    host:
+        max-per-route-connections: 1000
+        max-total-connections: 1000            
+     
+# 自定义swagger-api汇总
+swagger:
+    api:
+        names: service-user,service-product
+        locations: http://localhost:60011/v2/api-docs,http://localhost:60012/v2/api-docs 
+        versions: 2.0,2.0       
+        

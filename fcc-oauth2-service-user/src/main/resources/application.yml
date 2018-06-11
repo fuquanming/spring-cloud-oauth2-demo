@@ -1,0 +1,9 @@
+server:
+  port: 60011
+
+logging.level.org.springframework.security: DEBUG
+
+
+        
+        
+        
