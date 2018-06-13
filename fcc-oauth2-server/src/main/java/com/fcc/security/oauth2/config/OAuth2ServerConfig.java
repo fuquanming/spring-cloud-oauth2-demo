@@ -31,8 +31,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 import com.fcc.security.oauth2.service.ClientDetailsServiceImpl;
-//import com.wangji.security.oauth2.service.RedisTokenStoreImpl;
-import com.wangji.security.oauth2.service.RedisTokenStoreImpl;
+import com.fcc.security.oauth2.service.RedisTokenStoreImpl;
 
 /**
  * 可以使用grant_type方式为client_credentials,refresh_token,password
