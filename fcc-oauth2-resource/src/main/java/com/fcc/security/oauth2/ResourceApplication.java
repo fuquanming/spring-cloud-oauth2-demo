@@ -7,7 +7,7 @@
  * 修改历史 : 
  *     1. [2018年5月30日]创建文件 by 傅泉明
  */
-package com.wangji.security.oauth2;
+package com.fcc.security.oauth2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
-import com.wangji.security.oauth2.filter.OAuth2HeaderFilter;
-import com.wangji.security.oauth2.service.RedisTokenStoreImpl;
+import com.fcc.security.oauth2.filter.OAuth2HeaderFilter;
+import com.fcc.security.oauth2.service.RedisTokenStoreImpl;
 
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
-//import com.wangji.security.oauth2.service.RedisTokenStoreImpl;
+//import com.fcc.security.oauth2.service.RedisTokenStoreImpl;
 
 /**
  * 

@@ -7,7 +7,7 @@
  * 修改历史 : 
  *     1. [2018年6月6日]创建文件 by 傅泉明
  */
-package com.wangji.security.oauth2;
+package com.fcc.security.oauth2;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

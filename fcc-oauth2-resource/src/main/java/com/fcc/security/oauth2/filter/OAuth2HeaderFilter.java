@@ -7,7 +7,7 @@
  * 修改历史 : 
  *     1. [2018年6月1日]创建文件 by 傅泉明
  */
-package com.wangji.security.oauth2.filter;
+package com.fcc.security.oauth2.filter;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
