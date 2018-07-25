@@ -17,6 +17,7 @@
 		<module>fcc-oauth2-server</module>
 		<module>fcc-oauth2-service-user</module>
 		<module>fcc-oauth2-service-product</module>
+		<module>fcc-oauth2-eureka</module>
 	</modules>
 
     <parent>

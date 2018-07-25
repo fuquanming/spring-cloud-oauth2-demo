@@ -218,3 +218,73 @@ swagger:
 ### fcc-oauth2-service-user使用io.springfox集成
 
 ### 添加防止跨域的类CorsFilterConfig
+
+### fcc-oauth2-eureka使用Eureka为注册中心
+
+## 使用Zuul熔断（fcc-oauth2-eureka，fcc-oauth2-resource，fcc-oauth2-service-user）
+
+* 运行fcc-oauth2-eureka
+
+* fcc-oauth2-resource，新增eureka支持
+
+1、application.yml，添加注册中心配置信息，添加user服务配置，使用serviceId，注释url
+```
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:20000/eureka/
+```
+2、application.yml，添加user服务配置，使用serviceId，注释url
+```
+            #url: http://127.0.0.1:60011/
+            serviceId: user    # 注册中心使用，UserServiceFallback中getRoute()返回该名称
+```  
+3、pom.xml，添加注册中心客户端配置信息
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-eureka</artifactId>
+    <version>2.0.0.M2</version>
+</dependency>
+```
+4、新增UserServiceFallback，对服务user，熔断配置输出
+
+5、不使用熔断，当服务不能访问时，输出的信息如下
+```
+{
+    "timestamp": "2018-07-25T03:31:04.713+0000",
+    "status": 500,
+    "error": "Internal Server Error",
+    "message": "Connect to 127.0.0.1:60011 [/127.0.0.1] failed: Connection refused: connect"
+}
+```
+6、熔断，当服务不能访问时，屏蔽内部错误信息，输出的信息如下
+```
+{
+    "error": "service user lost"
+}
+```
+
+* fcc-oauth2-service-user，新增eureka支持
+
+1、UserServiceApplication，添加标记@EnableDiscoveryClient
+
+2、application.yml，添加注册中心配置信息
+```
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:20000/eureka/  
+```
+3、pom.xml，添加注册中心客户端配置信息
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-eureka</artifactId>
+    <version>2.0.0.M2</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore</artifactId>
+</dependency>
+```

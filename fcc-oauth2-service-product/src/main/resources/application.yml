@@ -2,7 +2,7 @@ server:
   port: 60012
 spring:
     application:
-        name:fcc-oauth2-service-product
+        name:product
 
 swagger:
     enabled: true
