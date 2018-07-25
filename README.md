@@ -185,7 +185,7 @@ zuul:
     <dependency>
         <groupId>com.marcosbarbero.cloud</groupId>
         <artifactId>spring-cloud-zuul-ratelimit</artifactId>
-        <version>2.0.1.RELEASE</version>
+        <version>2.0.2.RELEASE</version>
     </dependency>
 ```
 
