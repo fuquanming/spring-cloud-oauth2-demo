@@ -150,6 +150,45 @@ OAuth2HeaderFilter：自定义拦截器Oauth2认证成功后添加自定义头�
             max-total-connections: 1000 
 ```         
 
+* zuul配置信息：限流
+```
+zuul:
+    ratelimit:
+        enabled: true
+        behind-proxy: true          #代理之后
+        #repository: REDIS           #redis缓存数据
+        #default-policy-list:        #通用配置
+        #    limit: 10               #每个刷新时间窗口对应的请求数量限制
+        #    quota: 1000             #每个刷新时间窗口对应的请求时间限制（秒）
+        #    refresh-interval: 60    #统计窗口刷新时间（秒）
+        #    type:
+        #        - user              #授权用户，匿名用户区分
+        #        - origin            #客户端IP
+        #        - url               #请求路径
+        
+        policy-list:
+            api-user:               # 指定服务拦截
+              - limit: 10 #optional - request number limit per refresh interval window
+                quota: 1000 #optional - request time limit per refresh interval window (in seconds)
+                refresh-interval: 60 #default value (in seconds)
+                type: #optional
+                    - user
+                    - origin
+                    - url
+        #- type: #optional value for each type
+        #    - user=anonymous
+        #    - origin=somemachine.com
+        #    - url=/api #url prefix
+```
+* zuul配置信息：添加依赖包
+```
+    <dependency>
+        <groupId>com.marcosbarbero.cloud</groupId>
+        <artifactId>spring-cloud-zuul-ratelimit</artifactId>
+        <version>2.0.1.RELEASE</version>
+    </dependency>
+```
+
 * 添加集成各个swagger2的api路由
 访问地址：http://localhost:60001/swagger-ui.html
 

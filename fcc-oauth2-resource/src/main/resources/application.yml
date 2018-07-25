@@ -22,7 +22,32 @@ zuul:
     host:
         max-per-route-connections: 1000
         max-total-connections: 1000            
-     
+    ratelimit:                      # 限流
+        enabled: true
+        behind-proxy: true          #代理之后
+        #repository: REDIS           #redis缓存数据
+        #default-policy-list:        #通用配置
+        #    limit: 10               #每个刷新时间窗口对应的请求数量限制
+        #    quota: 1000             #每个刷新时间窗口对应的请求时间限制（秒）
+        #    refresh-interval: 60    #统计窗口刷新时间（秒）
+        #    type:
+        #        - user              #授权用户，匿名用户区分
+        #        - origin            #客户端IP
+        #        - url               #请求路径
+        
+        policy-list:
+            api-user:               # 指定服务拦截
+              - limit: 10 #optional - request number limit per refresh interval window
+                quota: 1000 #optional - request time limit per refresh interval window (in seconds)
+                refresh-interval: 60 #default value (in seconds)
+                type: #optional
+                    - user
+                    - origin
+                    - url
+        #- type: #optional value for each type
+        #    - user=anonymous
+        #    - origin=somemachine.com
+        #    - url=/api #url prefix
 # 自定义swagger-api汇总
 swagger:
     api:
