@@ -133,7 +133,7 @@ OAuth2HeaderFilter：自定义拦截器Oauth2认证成功后添加自定义头�
             ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("oauth2-username");
 ``` 
 
-* zuul配置信息：转发api数据到真是的内部接口
+* zuul配置信息：转发api数据到真实的内部接口
 ```
     zuul:
         routes:
@@ -180,7 +180,7 @@ zuul:
         #    - origin=somemachine.com
         #    - url=/api #url prefix
 ```
-* zuul配置信息：添加依赖包
+* zuul配置信息：限流-添加依赖包
 ```
     <dependency>
         <groupId>com.marcosbarbero.cloud</groupId>
